@@ -1,0 +1,14 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+rabboni = "==1.73"
+numpy = "==1.19.2"
+vpython = "*"
+
+[dev-packages]
+
+[requires]
+python_version = "3.7"
