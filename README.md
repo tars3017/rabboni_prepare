@@ -1,9 +1,9 @@
 # rabboni_preparation
 for the 2020 rabboni competition
 
+[四元數之旋轉矩陣參考](https://www.google.com/search?client=safari&rls=en&q=%E5%9B%9B%E5%85%83%E6%95%B8%E4%B9%8B%E6%97%8B%E8%BD%89%E7%9F%A9%E9%99%A3&ie=UTF-8&oe=UTF-8)
 
-https://www.google.com/search?client=safari&rls=en&q=%E5%9B%9B%E5%85%83%E6%95%B8%E4%B9%8B%E6%97%8B%E8%BD%89%E7%9F%A9%E9%99%A3&ie=UTF-8&oe=UTF-8
-如果真的弄到棒球會用到的 - 四元數之旋轉矩陣
+如果真的弄到棒球會用到的 - 
 
 https://implementation.ee.nthu.edu.tw/competition/groups/d04f4480-eb2a-4bf0-b60d-555a31f7ad8a/attachments/summary?download=0
 人家做過的棒球搭配六軸感測器
