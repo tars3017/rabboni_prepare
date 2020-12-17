@@ -76,7 +76,7 @@ class rabo():
         self.zt = gcurve(graph=gdz, color=color.red)
         #vt = gcurve(graph=gd2, color=color.red)
 
-
+# print("jasongay")
     def draw_canvas(self):
         self.datasize = len(self.processed_data[0])
         for i in range(self.datasize):
