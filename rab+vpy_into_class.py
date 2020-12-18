@@ -16,18 +16,20 @@ class rabo():
 
 
     def mean_filter(self,lis,noice):
-        self.processed_data = []
-        bias = 0
+        
+        temp = []
+        bias = 0.0
         for x in range(20):
             bias += lis[x]
         bias /= 20
-        for x in range(len(0,lis-2)):
+        for x in range(len(lis)-2):
             avr = (lis[x]+lis[x+1]+lis[x+2])/3
             avr -= bias
             if avr < noice:
-                self.processed_data.append(0)
+                temp.append(0)
             else:
-                self.processed_data.append(avr)
+                temp.append(avr)
+        self.processed_data.append(temp)
 
 
     def scan(self):
@@ -40,51 +42,65 @@ class rabo():
                 break
         self.end_t = time.time()
         self.rabo.disconnect()
-        self.rabo.stop()
         self.data = []
         self.data.append(self.rabo.Accx_list)
         self.data.append(self.rabo.Accy_list)
         self.data.append(self.rabo.Accz_list)
-        self.data.append(self.rabo.Gyrx)
-        self.data.append(self.rabo.Gyry)
-        self.data.append(self.rabo.Gyrz)
+        self.data.append(self.rabo.Gyrx_list)
+        self.data.append(self.rabo.Gyry_list)
+        self.data.append(self.rabo.Gyrz_list)
         self.dt = self.end_t - self.start_t
+        print(self.data)
 
 
     def data_process(self):
+        self.processed_data = []
         for x in self.data:
-            self.mean_filter(x,x) #到時候放lis的lis,noise
-        self.dT = self.dt/ len(self.processed_data[0]) #一秒幾筆資料
-        self.dt = len(self.processed_data[0])/self.dt #畫面更新時間（sec)
+            self.mean_filter(x,0.03) #到時候放lis的lis,noise
+        self.dT = self.dt/ len(self.processed_data) #一秒幾筆資料
+        self.dt = len(self.processed_data)/self.dt #畫面更新時間（sec)
 
-
+    def XYZt_graph(self):
+        self.gdx = graph(title="x-t plot", width=600, height=450, x=0, y=600, xtitle="t(s)", ytitle="x(m)")
+        #gd2x = graph(title="v-t plot", width=600, height=450, x=0, y=1050, xtitle="t(s)", ytitle="v(m/s)")
+        self.gdy = graph(title="y-t plot", width=600, height=450, x=0, y=600, xtitle="t(s)", ytitle="y(m)")
+        #gd2y = graph(title="v-t plot", width=600, height=450, x=0, y=1050, xtitle="t(s)", ytitle="v(m/s)")
+        self.gdz = graph(title="z-t plot", width=600, height=450, x=0, y=600, xtitle="t(s)", ytitle="z(m)")
+        #gd2z = graph(title="v-t plot", width=600, height=450, x=0, y=1050, xtitle="t(s)", ytitle="v(m/s)")
+        self.xt = gcurve(graph=gdx, color=color.red)
+        self.yt = gcurve(graph=gdy, color=color.red)
+        self.zt = gcurve(graph=gdz, color=color.red)
     def the_canvas(self):
-        self.scene = canvas(title='1', width=800, height=800, x=0, y=0, center=vector(0,0.06,0), background=vector(0.5,0.6,0.5))
+        self.scene = canvas(title='1', width=800, height=800, x=0, y=0, center=vector(1.5,0.8,0), background=vector(0.5,0.6,0.5))
         self.floor = box(pos=vector(0,-(0.005)/2,0), length=0.3, height=0.005, width=0.1)
         self.ball = sphere(pos=vector(0,0,0), radius=0.5)
-        self.pointer1 = arrow(pos=vector(0,0,0),axis=vector(10,0,0),shaftwidth=0.05,color=color.red)
-        self.pointer2 = arrow(pos=vector(0,0,0),axis=vector(0,10,0),shaftwidth=0.05,color=color.blue)
-        self.pointer3 = arrow(pos=vector(0,0,0),axis=vector(0,0,10),shaftwidth=0.05,color=color.green)
+        self.pointer1 = arrow(pos=vector(-10,0,0),axis=vector(20,0,0),shaftwidth=0.05,color=color.red)
+        self.pointer2 = arrow(pos=vector(0,-10,0),axis=vector(0,20,0),shaftwidth=0.05,color=color.blue)
+        self.pointer3 = arrow(pos=vector(0,0,-10),axis=vector(0,0,20),shaftwidth=0.05,color=color.green)
         self.gdx = graph(title="x-t plot", width=600, height=450, x=0, y=600, xtitle="t(s)", ytitle="x(m)")
         #gd2x = graph(title="v-t plot", width=600, height=450, x=0, y=1050, xtitle="t(s)", ytitle="v(m/s)")
         self.gdy = graph(title="y-t plot", width=600, height=450, x=0, y=600, xtitle="t(s)", ytitle="x(m)")
         #gd2y = graph(title="v-t plot", width=600, height=450, x=0, y=1050, xtitle="t(s)", ytitle="v(m/s)")
         self.gdz = graph(title="z-t plot", width=600, height=450, x=0, y=600, xtitle="t(s)", ytitle="x(m)")
         #gd2z = graph(title="v-t plot", width=600, height=450, x=0, y=1050, xtitle="t(s)", ytitle="v(m/s)")
-        self.xt = gcurve(graph=gdx, color=color.red)
-        self.yt = gcurve(graph=gdy, color=color.red)
-        self.zt = gcurve(graph=gdz, color=color.red)
+        self.xt = gcurve(graph=self.gdx, color=color.red)
+        self.yt = gcurve(graph=self.gdy, color=color.red)
+        self.zt = gcurve(graph=self.gdz, color=color.red)
         #vt = gcurve(graph=gd2, color=color.red)
 
-# print("jasongay")
+
     def draw_canvas(self):
         self.datasize = len(self.processed_data[0])
+        print(len(self.data), self.datasize,len(self.processed_data),len(self.processed_data[0]),'\n')
         for i in range(self.datasize):
-            rate(int(self.dT))
+            rate(int(1 / self.dT))
             #if(abs(Xa[i])<abs(Za[i])and abs(Ya[i])<abs(Za[i])):
             #    pt = points(color=color.black,pos=vector(0,0,0),shape="quare")
-            self.xt.plot(pos = (i, self.ball.pos.x))
+            self.xt.plot(pos = (1, self.ball.pos.x))
+            self.yt.plot(pos = (1, self.ball.pos.y))
+            self.zt.plot(pos = (1, self.ball.pos.z))
             #vt.plot(pos = (start1-timeit.default_timer(), cube.v.x))
+            print(i,'\n')
             self.ball.pos.x +=  self.processed_data[0][i]*self.dt* self.dt *50
             self.ball.pos.y +=  (self.processed_data[1][i]-0.98)*self.dt* self.dt *50
             # Vx += (Xa[i+1]-Xa[i]) * dt 
@@ -99,10 +115,14 @@ class rabo():
         # ball.pos.x=0
         # ball.pos.y=0
         # ball.pos.z=0
+    def stop_rab(self):
+        self.rabo.disconnect()
+        self.rabo.stop()
 
 Rab = rabo()
 Rab.scan()
 Rab.data_process()
 Rab.the_canvas()
 Rab.draw_canvas()
+# Rab.stop_rab()
 print("finish!!")
