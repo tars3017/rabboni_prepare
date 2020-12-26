@@ -56,7 +56,15 @@ class rabo():
             self.mean_filter(x,x) #到時候放lis的lis,noise
         self.dT = self.dt/ len(self.processed_data[0]) #一秒幾筆資料
         self.dt = len(self.processed_data[0])/self.dt #畫面更新時間（sec)
-
+    
+    def create_data(self):
+        create_data = []
+        for x in self.processed_data:
+            create_data.append(x)
+            create_data.append(0)
+        create_data.pop()
+        for i in range(1, len(create_data)-1, 2):
+            create_data[i] = int((create_data[i+1] + create_data[i-1]) / 2) 
 
     def the_canvas(self):
         self.scene = canvas(title='1', width=800, height=800, x=0, y=0, center=vector(0,0.06,0), background=vector(0.5,0.6,0.5))
