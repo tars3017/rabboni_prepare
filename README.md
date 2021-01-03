@@ -17,7 +17,7 @@ for the 2020 rabboni competition
 
 [rabboni 的範例](https://hackmd.io/eeY0Jog2R66sI8Ooki1dWg?view#Function-For-Collect-or-Process-Data)
 
-[3blue1brown 四元墅矩陣](https://www.youtube.com/watch?v=d4EgbgTm0Bg)
+[3blue1brown 四元數矩陣](https://www.youtube.com/watch?v=d4EgbgTm0Bg)
 
 
 
