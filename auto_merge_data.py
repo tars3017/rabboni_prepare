@@ -5,14 +5,17 @@ def mergeFile():
     cur = os.getcwd()
     final = [[]]
     def write_in_file(file):
-        with open(filename, 'r', newline='') as f:
+        with open(file, 'r', newline='') as f:
             rows = csv.reader(f)
             for row in rows:
                 final.append(row)
                 break
 
-
-
+    title = ["Packet number", "GyroscopeX", "GyroscopeY", "GyroscopeZ", "AcceleromotorX", "AcceleromotorY", "AcceleromotorZ"]
+    with open('.\\merge.csv', 'w', newline='') as f:
+        csvwriter = csv.writer(f)
+        csvwriter.writerow(title)
+    print("done")
     for filename in os.listdir(cur):        
         if(filename.startswith("GyrX")):
             with open(filename, 'r', newline='') as f:
@@ -50,10 +53,11 @@ def mergeFile():
     trans = npArray.T
     transL = trans.tolist()
     # print(transuL)
-    f = open('.\merge.csv', 'w')
-    f.close
+    # f = open('.\merge.csv', 'w')
+    # f.close
     for i in transL:
         print(i)
         with open('.\merge.csv', 'a', newline='') as f:
             writer = csv.writer(f)
             writer.writerow(i)
+mergeFile()
