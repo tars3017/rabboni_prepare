@@ -3,12 +3,17 @@ for the 2020 rabboni competition
 
 ## notification
 韌體更新至 **106** 
+
 python : **3.7**
+
 numpy : **1.19.2**
+
 rabboni : **1.83**
 
 讀取資料 : 
+
 用 **Collect.py** (要在Folder中加入merge_data.py )
+
 ## Ｒeference
 
 [四元數之旋轉矩陣](https://www.google.com/search?client=safari&rls=en&q=%E5%9B%9B%E5%85%83%E6%95%B8%E4%B9%8B%E6%97%8B%E8%BD%89%E7%9F%A9%E9%99%A3&ie=UTF-8&oe=UTF-8)
