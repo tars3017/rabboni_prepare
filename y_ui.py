@@ -1,5 +1,4 @@
-import pygame
-
+import pygame, os, time
 
 pygame.init()
 screen = pygame.display.set_mode((600, 500))
@@ -30,10 +29,7 @@ class InputBox:
             self.color = COLOR_ACTIVE if self.active else COLOR_INACTIVE
         if event.type == pygame.KEYDOWN:
             if self.active:
-                if event.key == pygame.K_RETURN:
-                    print(self.text)
-                    self.text = ''
-                elif event.key == pygame.K_BACKSPACE:
+                if event.key == pygame.K_BACKSPACE:
                     self.text = self.text[:-1]
                 else:
                     self.text += event.unicode
@@ -50,7 +46,9 @@ class InputBox:
         screen.blit(self.txt_surface, (self.rect.x+5, self.rect.y+5))
         # Blit the rect.
         pygame.draw.rect(screen, self.color, self.rect, 2)
-
+    
+    def return_str(self):
+        return self.text
 
 class First_screen():
     
@@ -58,40 +56,61 @@ class First_screen():
         self.clock = pygame.time.Clock()
         self.background = pygame.image.load("pic/penguin.jpg")
         self.background = pygame.transform.smoothscale(self.background,(600,500))
-        screen.blit(self.background,(0,0))
+        self.button = pygame.image.load("pic/next.png")
+        self.button = pygame.transform.smoothscale(self.button,(200,170)).convert_alpha()
         self.input_box_name = InputBox(60,140,50,32)
         self.input_box_height = InputBox(400,140,50,32)
         self.input_boxes = [self.input_box_name, self.input_box_height]
         pygame.display.update()
         self.done = False
+        self.remove_screen = False
 
     def routine(self):
         while not self.done:
-            for event in pygame.event.get():
-                if event.type == pygame.QUIT:
-                    self.done = True
-                for box in self.input_boxes:
-                    box.handle_event(event)
-
-            for box in self.input_boxes:
-                box.update()
 
             screen.blit(self.background,(0,0))
-
-            for box in self.input_boxes:
-                box.draw(screen)
-
+            screen.blit(self.button,(200,300))
             text = FONT.render("Enter your name",True,(0,0,0))
             screen.blit(text, (43,115))
             text = FONT.render("Enter your height", True, (0,0,0))
             screen.blit(text, (390,115))
 
+            for box in self.input_boxes:
+                box.update()
+                box.draw(screen)
+
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    self.done = True
+                for box in self.input_boxes:
+                    box.handle_event(event)
+                if event.type == pygame.MOUSEBUTTONDOWN:
+                    pos = pygame.mouse.get_pos()
+                    if (267 < pos[0] < 322) and (316 < pos[1] < 360) :
+                        name,height = self.input_boxes[0].return_str(), self.input_boxes[1].return_str()
+                        #go to next screen
+                        self.background.fill((255,255,255))
+                        screen.blit(self.background,(0,0))
+                        print(name,height)
+                        self.done = True
+
             pygame.display.flip()
             self.clock.tick(30)
 
+        def remove(self):
+            self.background.fill((255,255,255))
+            if self.remove:
+                return True
+
+
+class Menu():
+    
+    def __init__(self):
+        pass
 
 
 if __name__ == '__main__':
     f = First_screen(screen)
     f.routine()
+    time.sleep(2)
     pygame.quit()
