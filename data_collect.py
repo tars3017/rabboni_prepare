@@ -52,17 +52,15 @@ finally:
         #Max = max(Max, pos * 10)
     pos = 0
     for i in rabo.Accz_list:
-        '''if i > 0: 
-            print("positive")
-        else :
-            print("negative")'''
         pos += sepTime * sepTime * i
         Rz.append(pos * 10)
         Max = max(Max, pos * 10)
-    fig = plt.figure()
-    plt.title('X-Z trace')
+    plt.title('X-Z/X-Y trace figure')
     plt.xlabel('X displacement')
-    plt.plot(Rx, Rz)
+    plt.plot(Rx, Rz, label='Z displacement')
+    plt.plot(Rx, Ry, label='Y displacement')
     plt.xlim(0, 0.5)
     plt.ylim(-0.5, 0.5)
+    plt.legen()
     plt.show()
+    # maybe try to use the opposite huge accleration as the timing to stop
