@@ -4,7 +4,7 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
-rabboni = "==1.73"
+rabboni = "==1.83"
 numpy = "==1.19.2"
 vpython = "*"
 pandas = "*"
