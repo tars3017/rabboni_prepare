@@ -61,7 +61,6 @@ class First_screen():
         self.input_box_name = InputBox(60,140,50,32)
         self.input_box_height = InputBox(400,140,50,32)
         self.input_boxes = [self.input_box_name, self.input_box_height]
-        pygame.display.update()
         self.done = False
         self.remove_screen = False
 
@@ -97,20 +96,37 @@ class First_screen():
             pygame.display.flip()
             self.clock.tick(30)
 
-        def remove(self):
-            self.background.fill((255,255,255))
-            if self.remove:
-                return True
-
 
 class Menu():
     
-    def __init__(self):
+    def __init__(self,screen):
+        self.background = pygame.image.load("pic/menu.JPG")
+        self.background = pygame.transform.smoothscale(self.background.convert_alpha(),(600,500))
+        self.start_button = pygame.image.load("pic/white_menu_button.JPG")
+        self.start_button = pygame.transform.smoothscale(self.start_button.convert_alpha(),(200,100))
+        self.done = False
+
+    def routine(self):
+        while not self.done:
+            screen.blit(self.background,(0,0))
+            screen.blit(self.start_button,(349,67))
+            for event in pygame.event.get():
+                if event.type == pygame.MOUSEBUTTONDOWN:
+                    if (349 < pygame.mouse.get_pos()[0] < 550) and (69 < pygame.mouse.get_pos()[1] < 169):
+                        pass
+                        # next screen
+            pygame.display.flip()
+
+
+class Ball_screen():
+
+    def __init__(self,screen):
         pass
 
 
 if __name__ == '__main__':
     f = First_screen(screen)
     f.routine()
-    time.sleep(2)
+    a = Menu(screen)
+    a.routine()
     pygame.quit()
