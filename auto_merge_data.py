@@ -15,7 +15,7 @@ def mergeFile():
     with open('.\\merge.csv', 'w', newline='') as f:
         csvwriter = csv.writer(f)
         csvwriter.writerow(title)
-    print("done")
+    print("merge done")
     for filename in os.listdir(cur):        
         if(filename.startswith("GyrX")):
             with open(filename, 'r', newline='') as f:
