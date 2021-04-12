@@ -1,12 +1,10 @@
 import pygame, os, time
-
 pygame.init()
 screen = pygame.display.set_mode((600, 500))
 pygame.display.set_caption('Baseball!!!')
 COLOR_INACTIVE = pygame.Color('white')
 COLOR_ACTIVE = pygame.Color('black')
 FONT = pygame.font.Font(None, 32)
-
 
 class InputBox:
 
@@ -104,29 +102,51 @@ class Menu():
         self.background = pygame.transform.smoothscale(self.background.convert_alpha(),(600,500))
         self.start_button = pygame.image.load("pic/white_menu_button.JPG")
         self.start_button = pygame.transform.smoothscale(self.start_button.convert_alpha(),(200,100))
+        self.quit_button = pygame.image.load("pic/quit.JPG")
+        self.quit_button = pygame.transform.smoothscale(self.quit_button.convert_alpha(),(200,100))
+        
         self.done = False
 
     def routine(self):
         while not self.done:
             screen.blit(self.background,(0,0))
             screen.blit(self.start_button,(349,67))
+            screen.blit(self.quit_button,(349, 350))
             for event in pygame.event.get():
                 if event.type == pygame.MOUSEBUTTONDOWN:
                     if (349 < pygame.mouse.get_pos()[0] < 550) and (69 < pygame.mouse.get_pos()[1] < 169):
-                        pass
+                        self.done = True
+                        screen.fill((255,255,255))        
                         # next screen
+                    if (349 < pygame.mouse.get_pos()[0] < 550) and (350 < pygame.mouse.get_pos()[1]<450):
+                        pygame.quit()
             pygame.display.flip()
 
+from Gait_Tracking import script
+import Collect 
 
 class Ball_screen():
 
     def __init__(self,screen):
-        pass
+        self.background = pygame.image.load("pic/strike.jpg")
+        self.background = pygame.transform.smoothscale(self.background,(600,500))
 
+    def routine(self):
+        screen.blit(self.background,(0,0))
+        pygame.display.flip()
+        Collect()
+        script.run()
+        
 
 if __name__ == '__main__':
     f = First_screen(screen)
-    f.routine()
     a = Menu(screen)
-    a.routine()
+    b = Ball_screen(screen)
+
+    f.routine()
+    while 1:
+        a.done = False
+        a.routine()
+        b.routine()
+
     pygame.quit()
