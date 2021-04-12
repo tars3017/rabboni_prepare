@@ -1,4 +1,4 @@
-import pygame, os, time
+import pygame, os, time, random
 pygame.init()
 screen = pygame.display.set_mode((600, 500))
 pygame.display.set_caption('Baseball!!!')
@@ -122,19 +122,23 @@ class Menu():
                         pygame.quit()
             pygame.display.flip()
 
-from Gait_Tracking import script
-import Collect 
+# from Gait_Tracking import script
+# from Collect import collect
 
 class Ball_screen():
 
     def __init__(self,screen):
         self.background = pygame.image.load("pic/strike.jpg")
         self.background = pygame.transform.smoothscale(self.background,(600,500))
+        self.baseball_pic = pygame.image.load("pic/baseball.png")
+        self.baseball_pic = pygame.transform.smoothscale(self.baseball_pic.convert_alpha(),(30,30))
+
 
     def routine(self):
         screen.blit(self.background,(0,0))
+        screen.blit(self.baseball_pic,(random.randint(280,500),random.randint(191,400)))
         pygame.display.flip()
-        Collect()
+        collect()
         script.run()
         
 
