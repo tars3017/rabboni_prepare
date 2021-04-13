@@ -122,8 +122,8 @@ class Menu():
                         pygame.quit()
             pygame.display.flip()
 
-# from Gait_Tracking import script
-# from Collect import collect
+from Gait_Tracking import script
+from Collect import collect
 
 class Ball_screen():
 
