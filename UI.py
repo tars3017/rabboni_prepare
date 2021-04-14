@@ -131,7 +131,7 @@ class Ball_screen():
         self.background = pygame.image.load("pic/strike.jpg")
         self.background = pygame.transform.smoothscale(self.background,(600,500))
         self.baseball_pic = pygame.image.load("pic/baseball.png")
-        self.baseball_pic = pygame.transform.smoothscale(self.baseball_pic.convert_alpha(),(30,30))
+        self.baseball_pic = pygame.transform.smoothscale(self.baseball_pic.convert_alpha(),(200,100))
 
 
     def routine(self):

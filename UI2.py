@@ -132,37 +132,39 @@ def collect():
     rabo = Rabboni(mode = "USB") #先宣告一個物件
     rabo.connect()
     cnt=0
+    go = 1
     # rabo.set_sensor_config(acc_scale=16,gry_scale=2000,rate=500,threshold=10000)
     # rabo.set_sensor_config(acc_scale=16,gyr_scale=500,rate=500,threshold=10000)
     start=timeit.default_timer()
 
     rabo.read_data()
-    while True:
-    # 讀取資料 必跑
-        try:
-            while True:#一直打印資料 直到結束程式
-                cnt+=1
-                rabo.print_data()#print資料
+    while go:
+        #一直打印資料 直到按按鈕
+        cnt+=1
+        rabo.print_data()#print資料
+        for event in pygame.event.get():
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                go = 0
+                break
 
-        except KeyboardInterrupt:#結束程式
-            print('Shut done!')
-            end=timeit.default_timer()
-            # print (rabo.Accx_list)#印出到結束程式時的所有Accx值
-            rabo.stop()
-            
-            print("total time : ",end-start,'\n')
-            print("data size : ",cnt,'\n')
-            print("data per sec : ",(end-start)/cnt)
-            rabo.stop()#停止dongle
-            rabo.write_csv(data = rabo.Accx_list,file_name ="AccX")#將Accx寫出csv檔
-            rabo.write_csv(data = rabo.Accy_list,file_name ="AccY")#將Accy寫出csv檔
-            rabo.write_csv(data = rabo.Accz_list,file_name ="AccZ")#將Accz寫出csv檔
-            rabo.write_csv(data = rabo.Accx_list,file_name ="AccX")#將Accx寫出csv檔
-            rabo.write_csv(data = rabo.Gyrx_list,file_name ="GyrX")#將Gyrx寫出csv檔
-            rabo.write_csv(data = rabo.Gyry_list,file_name ="GyrY")#將Gyrx寫出csv檔
-            rabo.write_csv(data = rabo.Gyrz_list,file_name ="GyrZ")#將Gyrx寫出csv檔
-            mergeFile()
-            script.run()
+    print('Shut done!')
+    end=timeit.default_timer()
+    # print (rabo.Accx_list)#印出到結束程式時的所有Accx值
+    rabo.stop()
+    
+    print("total time : ",end-start,'\n')
+    print("data size : ",cnt,'\n')
+    print("data per sec : ",(end-start)/cnt)
+    rabo.stop()#停止dongle
+    rabo.write_csv(data = rabo.Accx_list,file_name ="AccX")#將Accx寫出csv檔
+    rabo.write_csv(data = rabo.Accy_list,file_name ="AccY")#將Accy寫出csv檔
+    rabo.write_csv(data = rabo.Accz_list,file_name ="AccZ")#將Accz寫出csv檔
+    rabo.write_csv(data = rabo.Accx_list,file_name ="AccX")#將Accx寫出csv檔
+    rabo.write_csv(data = rabo.Gyrx_list,file_name ="GyrX")#將Gyrx寫出csv檔
+    rabo.write_csv(data = rabo.Gyry_list,file_name ="GyrY")#將Gyrx寫出csv檔
+    rabo.write_csv(data = rabo.Gyrz_list,file_name ="GyrZ")#將Gyrx寫出csv檔
+    mergeFile()
+    script.run()
 
 
 class Ball_screen():
@@ -172,11 +174,13 @@ class Ball_screen():
         self.background = pygame.transform.smoothscale(self.background,(600,500))
         self.baseball_pic = pygame.image.load("pic/baseball.png")
         self.baseball_pic = pygame.transform.smoothscale(self.baseball_pic.convert_alpha(),(30,30))
-
+        self.stop_button = pygame.image.load("pic/stop.png")
+        self.stop_button = pygame.transform.smoothscale(self.stop_button.convert_alpha(),(200,100))
 
     def routine(self):
         screen.blit(self.background,(0,0))
         screen.blit(self.baseball_pic,(random.randint(280,500),random.randint(191,400)))
+        screen.blit(self.stop_button,(300,20))
         pygame.display.flip()
         collect()
         
