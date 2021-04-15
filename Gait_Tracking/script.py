@@ -196,8 +196,9 @@ def run(total_time):
 
     # -------------------------------------------------------------------------
     # Compute translational velocities
-
-    acc[:,2] = acc[:,2] - 9.81
+    #acc[:,0] = [n +0.7 if abs(n)<0.7 else 0 for n in acc[:,0]]
+    #acc[:,1] = [n +0.7 if abs(n)<0.7 else 0 for n in acc[:,1]]
+    acc[:,2] = acc[:,2] - 7.9
 
     # Integrate acceleration to yield velocity
     vel = np.zeros(np.shape(acc))
@@ -247,7 +248,7 @@ def run(total_time):
     # Integrate velocity to yield position
     pos = np.zeros(np.shape(vel))
     for t in range(1,len(pos)):
-        pos[t,:] = pos[t-1,:] + vel[t,:] * samplePeriod    # integrate velocity to yield position
+        pos[t,:] = pos[t-1,:] + vel[t,:] * samplePeriod *0.05  # integrate velocity to yield position
 
 
     # Plot translational position
@@ -261,6 +262,27 @@ def run(total_time):
     plt.xlabel('Time (s)')
     plt.ylabel('Position (m)')
     plt.legend(('X', 'Y', 'Z'))
+
+    plt.figure(figsize=(100,100))
+    plt.suptitle('x-y', fontsize=14)
+    plt.grid()
+    plt.xlim(-5,5)
+    plt.ylim(-5,5)
+    plt.plot(pos[:,0],pos[:,1], 'r')
+    plt.title('x-y')
+    plt.xlabel('x')
+    plt.ylabel('y')
+    plt.legend(('X','y'))
+    plt.figure(figsize=(100,100))
+    plt.suptitle('y-z', fontsize=14)
+    plt.grid()
+    plt.xlim(-5,5)
+    plt.ylim(-5,5)
+    plt.plot(pos[:,1],pos[:,2], 'r')
+    plt.title('y-z')
+    plt.xlabel('y')
+    plt.ylabel('z')
+    plt.legend(('y','z'))
 
     print('Erro em Z: %.4f' % abs(pos[-1, 2]))
     # -------------------------------------------------------------------------
@@ -314,9 +336,9 @@ def run(total_time):
 
     ax.set_title('3D Animation')
 
-    ax.set_xlim3d([-300.0, 300.0])
-    ax.set_ylim3d([-300.0, 300.0])
-    ax.set_zlim3d([-300.0, 300.0])
+    ax.set_xlim3d([-5.0, 5.0])
+    ax.set_ylim3d([-5.0, 5.0])
+    ax.set_zlim3d([-5.0, 5.0])
 
     #
     def update_lines(num):
