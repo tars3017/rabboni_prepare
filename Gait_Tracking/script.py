@@ -24,6 +24,7 @@ def run(total_time):
     filePath = 'merge.csv'
     startTime = 0
     stopTime = total_time
+    print(total_time)
     tempo_parado = 2 #  segundos parado
     mag_enabled = False
 
@@ -313,9 +314,9 @@ def run(total_time):
 
     ax.set_title('3D Animation')
 
-    ax.set_xlim3d([-3.0, 3.0])
-    ax.set_ylim3d([-3.0, 3.0])
-    ax.set_zlim3d([-3.0, 3.0])
+    ax.set_xlim3d([-300.0, 300.0])
+    ax.set_ylim3d([-300.0, 300.0])
+    ax.set_zlim3d([-300.0, 300.0])
 
     #
     def update_lines(num):
