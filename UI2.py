@@ -180,11 +180,12 @@ class Ball_screen():
 
     def routine(self):
         screen.blit(self.background,(0,0))
-        screen.blit(self.baseball_pic,(random.randint(280,500),random.randint(191,400)))
+        
         screen.blit(self.stop_button,(300,20))
         pygame.display.flip()
         collect()
-        
+        screen.blit(self.baseball_pic,(random.randint(280,500),random.randint(191,400)))
+        time.sleep(20)
         
 
 if __name__ == '__main__':
