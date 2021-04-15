@@ -56,8 +56,7 @@ def mergeFile():
     # f = open('.\merge.csv', 'w')
     # f.close
     for i in transL:
-        print(i)
+        # print(i)
         with open('.\merge.csv', 'a', newline='') as f:
             writer = csv.writer(f)
             writer.writerow(i)
-mergeFile()

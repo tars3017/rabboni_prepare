@@ -151,11 +151,12 @@ def collect():
     end=timeit.default_timer()
     # print (rabo.Accx_list)#印出到結束程式時的所有Accx值
     rabo.stop()
-    
+    total_time = end-start
+    total_time = int(total_time)
     print("total time : ",end-start,'\n')
     print("data size : ",cnt,'\n')
     print("data per sec : ",(end-start)/cnt)
-    rabo.stop()#停止dongle
+    # rabo.stop()#停止dongle
     rabo.write_csv(data = rabo.Accx_list,file_name ="AccX")#將Accx寫出csv檔
     rabo.write_csv(data = rabo.Accy_list,file_name ="AccY")#將Accy寫出csv檔
     rabo.write_csv(data = rabo.Accz_list,file_name ="AccZ")#將Accz寫出csv檔
@@ -164,7 +165,7 @@ def collect():
     rabo.write_csv(data = rabo.Gyry_list,file_name ="GyrY")#將Gyrx寫出csv檔
     rabo.write_csv(data = rabo.Gyrz_list,file_name ="GyrZ")#將Gyrx寫出csv檔
     mergeFile()
-    script.run()
+    script.run(total_time)
 
 
 class Ball_screen():

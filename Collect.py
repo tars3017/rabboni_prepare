@@ -1,7 +1,7 @@
 # -*- coding: UTF-8 -*-
 from rabboni import *
 def collect():
-    #from rabboni import *
+    from rabboni import Rabboni
     from auto_merge_data import mergeFile
     import timeit
     rabo = Rabboni(mode = "USB") #先宣告一個物件

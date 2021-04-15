@@ -15,15 +15,15 @@
 
 # -------------------------------------------------------------------------
 # Select dataset (comment in/out)
-def run():
+def run(total_time):
     import numpy as np
     from scipy import signal
     import matplotlib.pyplot as plt
     import pandas as pd
-    Fs = 256
+    Fs = 500
     filePath = 'merge.csv'
-    startTime = 15
-    stopTime = 18
+    startTime = 0
+    stopTime = total_time
     tempo_parado = 2 #  segundos parado
     mag_enabled = False
 
@@ -40,9 +40,9 @@ def run():
     accX = dataset.iloc[:,4].values
     accY = dataset.iloc[:,5].values
     accZ = dataset.iloc[:,6].values
-    magX = dataset.iloc[:,7].values
-    magY = dataset.iloc[:,8].values
-    magZ = dataset.iloc[:,9].values
+    # magX = dataset.iloc[:,7].values
+    # magY = dataset.iloc[:,8].values
+    # magZ = dataset.iloc[:,9].values
 
     # -------------------------------------------------------------------------
     # Manually frame data
